@@ -45,7 +45,7 @@ function App() {
   useEffect(() => data, []);
 
   async function data() {
-    await fetch("./books.json",
+    await fetch("books.json",
     {headers: 
     {'Content-Type': 'application/json','Accept': 'application/json'}
     })
