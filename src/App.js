@@ -53,6 +53,7 @@ function App() {
     .then((res) => setFetchedData(res.books))
     .catch((err) => console.log(err));
   }
+  console.log(fetchedData)
 
   return (
     
