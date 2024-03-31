@@ -42,15 +42,15 @@ function App() {
   const [signedIn, setSignedIn] = useState(false);
   const [fetchedData, setFetchedData] = useState([]);
   
-  useEffect(() => data, []);
-
-  async function data() {
-    await fetch("books.json")
+  useEffect(() => { async function getData() {
+    await fetch("./books.json",
+      {headers: 
+        {'Content-Type': 'application/json','Accept': 'application/json'}
+    })
     .then((res) => res.json())
-    .then((res) => setFetchedData(res.books))
-    .catch((err) => console.log(err));
-  }
-  console.log(fetchedData)
+    .then(data => setFetchedData(data.books))
+    .catch((err) => console.log('fetch failed'));
+    }; getData() }, []);
 
   return (
     
