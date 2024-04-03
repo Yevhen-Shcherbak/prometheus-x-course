@@ -71,31 +71,26 @@ export default function SpecificBook({bookData}) {
       bookName: bookData.title,
       amount: itemsNumber,
     };
-  
-    const cart = cartData
-      ? cartData
-      : [];
 
-    const matchIndex = cart.findIndex(item => item.id === itemToAdd.id);
-  
+    const matchIndex = cartData.findIndex(item => item.id === itemToAdd.id);
+    
     if (matchIndex === -1) {
-      cart.push(itemToAdd);
+      cartData.push(itemToAdd);
     } else {
-      let amountInCart = cart[matchIndex].amount; 
-      if (amountInCart < 43) {
-        if(amountInCart + itemsNumber >= 43) {
-          console.log(itemsNumber)
-          amountInCart = 42;
+      if (cartData[matchIndex].amount < 43) {
+        if((cartData[matchIndex].amount + itemsNumber) >= 43) {
+          cartData[matchIndex].amount = 42;
         } else {
-          amountInCart += itemsNumber;
+          cartData[matchIndex].amount += itemsNumber;
+          setCartData(cartData);
         }
       } else {
-        amountInCart = 42;
+        cartData[matchIndex].amount = 42;
       } 
     }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    setCartData(cart)
+    setCartData(cartData);
+    localStorage.setItem('cart', JSON.stringify(cartData));
+    
   };
   
 
@@ -133,7 +128,7 @@ export default function SpecificBook({bookData}) {
                   <Card.Text className="mb-2">
                     <span className="fw-semibold">
                       Available amount:
-                    </span> {bookData.amount || 'out of stock'}
+                    </span> {bookData.amount?<span className="fw-semibold text-success">{bookData.amount}</span>:<span className="fw-semibold text-danger">out of stock</span>}
                   </Card.Text>
                 </Card.Body>
               </Container>

@@ -4,7 +4,6 @@ import {
     createRoutesFromElements,
     Route,
     RouterProvider,
-    useFetcher
 } from 'react-router-dom';
 
 import RootLayout from './Components/RootLayout';
@@ -44,8 +43,8 @@ function App() {
 
   const [signedIn, setSignedIn] = useState(false);
   const [fetchedData, setFetchedData] = useState([]);
-  const [cartData, setCartData] = useState();
-  
+  const [cartData, setCartData] = useState([]);
+
   useEffect(() => { async function getData() {
     await fetch("./books.json",
       {headers: 
@@ -65,13 +64,15 @@ function App() {
   }, [])
   
   return ( 
+    <CartContext.Provider value= {{cartData, setCartData}}>
     <SignedInContext.Provider value= {[signedIn, setSignedIn]}>
-      <CartContext.Provider value= {{cartData, setCartData}}>
+      
         <BooksContext.Provider value = {fetchedData}>
           <RouterProvider router= {router}/>
         </BooksContext.Provider>  
-      </CartContext.Provider>  
+      
     </SignedInContext.Provider>
+    </CartContext.Provider>  
   );
 }
 

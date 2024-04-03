@@ -1,6 +1,5 @@
 import { NavLink, Link} from "react-router-dom";
-import { useState, useContext } from "react";
-import SignedInContext from '../../Context/SignedInContext';
+import { useState, useContext, useEffect } from "react";
 
 import { Container } from "react-bootstrap";
 import Badge from 'react-bootstrap/Badge';
@@ -10,17 +9,28 @@ import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 
 import svg from "./cart.svg";
+import CartContext from "../../Context/CartContext";
+import SignedInContext from '../../Context/SignedInContext';
 
 export default function Header()  {
 
+  const {cartData, setCartData} = useContext(CartContext);
   const [signedIn, setSignedIn] = useContext(SignedInContext);
   const [signOutWasPressed, setSignOutWasPressed] = useState(false);
 
   const handleSignOut = () => {
-      setSignOutWasPressed(true);
-      window.localStorage.removeItem('currentUser');  
-      setSignedIn(false);
+    setSignOutWasPressed(true);
+    window.localStorage.removeItem('currentUser');  
+    setSignedIn(false);
   }
+
+  // const cartItemsQuantity = () => {
+  //   const initialValue = 0;
+  //   const sum = cartData.reduce( 
+  //     (accumulator,
+  //     currentValue) => accumulator + currentValue.amount, initialValue);
+  //   return sum;
+  // }
   
   return (
     <header className="nav-panel">
@@ -68,7 +78,7 @@ export default function Header()  {
                     width={35}
                     className="svg"
                   />
-                  <Badge bg="warning">9</Badge>
+                  <Badge bg="warning">{cartData?cartData.length:'hui'}</Badge>
                 </Button >
               </Nav.Link>
               <Nav.Link 
