@@ -9,8 +9,9 @@ export default function Footer() {
           className="fs-5 link-success link-underline-opacity-0"
           target="_blank"
         >
-            Prometheus
+          Prometheus 
         </a>
+        <span className="ps-2"> © 2024</span>
       </div> 
     </footer>   
   )

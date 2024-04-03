@@ -18,7 +18,7 @@ export default function Header()  {
 
   const handleSignOut = () => {
       setSignOutWasPressed(true);
-      window.localStorage.clear();  
+      window.localStorage.removeItem('currentUser');  
       setSignedIn(false);
   }
   

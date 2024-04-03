@@ -3,7 +3,8 @@ import {
     createHashRouter,
     createRoutesFromElements,
     Route,
-    RouterProvider
+    RouterProvider,
+    useFetcher
 } from 'react-router-dom';
 
 import RootLayout from './Components/RootLayout';
@@ -14,8 +15,10 @@ import BooksLazyLoading from './Components/Main/ProtectedRoutes/Books/BooksLazyL
 import Cart from './Components/Main/ProtectedRoutes/Cart/Cart';
 import NotFound from './Components/Main/NotFound';
 import SpecificBookLazyLoader from './Components/Main/ProtectedRoutes/SpecificBook/SpecificBookLazyLoader';
+
 import SignedInContext from './Context/SignedInContext';
 import BooksContext from './Context/BooksContext';
+import CartContext from './Context/CartContext';
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -41,6 +44,7 @@ function App() {
 
   const [signedIn, setSignedIn] = useState(false);
   const [fetchedData, setFetchedData] = useState([]);
+  const [cartData, setCartData] = useState();
   
   useEffect(() => { async function getData() {
     await fetch("./books.json",
@@ -52,14 +56,22 @@ function App() {
     .catch((err) => console.log('fetch failed'));
     }; getData() }, []);
 
-  return (
-    
-        <SignedInContext.Provider value= {[signedIn, setSignedIn]}>
-          <BooksContext.Provider value = {fetchedData}>
-            <RouterProvider router= {router}/>
-          </BooksContext.Provider>    
-        </SignedInContext.Provider>
-    
+  useEffect(() => {
+    if (localStorage.cart) {
+      setCartData(JSON.parse(localStorage.getItem('cart')));
+    } else {
+      return;
+    }
+  }, [])
+  
+  return ( 
+    <SignedInContext.Provider value= {[signedIn, setSignedIn]}>
+      <CartContext.Provider value= {{cartData, setCartData}}>
+        <BooksContext.Provider value = {fetchedData}>
+          <RouterProvider router= {router}/>
+        </BooksContext.Provider>  
+      </CartContext.Provider>  
+    </SignedInContext.Provider>
   );
 }
 

@@ -17,12 +17,16 @@ export default function Books() {
   const [searchFilteredBooks, setSearchFilteredBooks] = useState(books);
   const [priceFilteredBooks, setPriceFilteredBooks] = useState(books);
   const [resultBookList, setResultBookList] = useState(books);
-  console.log(books)
+
   useEffect(()=> {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    }, []);
+
     setSearchFilteredBooks(books);
     setPriceFilteredBooks(books);
     setResultBookList(books);
-    console.log(books)
   }, [books]);
 
   useEffect(()=>{

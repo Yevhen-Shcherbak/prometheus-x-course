@@ -1,13 +1,28 @@
-import { useContext, useEffect } from "react"
-import BooksContext from "../../../../Context/BooksContext"
+import { useState, useEffect, useContext } from "react";
+import { Button, Container } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+import CartContext from "../../../../Context/CartContext";
 
 export default function Cart() {
-  const data1 = useContext(BooksContext);
-  useEffect(() => console.log(data1), [data1])
+  const {cartData, setCartData} = useContext(CartContext);
+
+  const handlePurchase = () => {
+    setCartData([]);
+    localStorage.removeItem('cart');
+  }
 
   return (
-    <div>
-      <h1>Cart</h1>
-    </div>
+    <Container size= 'sm'>
+      {cartData
+      ? cartData.map((book) => (
+        <Row key={book.id}>
+          <Col>{book.bookName}</Col>
+          <Col>{book.amount}</Col>
+        </Row>))
+      :<div>Cart empty</div>}
+      <Button onClick={ handlePurchase }>Purchase</Button>
+    </Container>
   )
 }

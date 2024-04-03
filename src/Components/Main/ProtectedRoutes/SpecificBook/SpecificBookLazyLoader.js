@@ -14,7 +14,6 @@ export default function SpecificBookLazyLoader() {
   const books = useContext(BooksContext);
   const {id} = useParams();
   const [matchedBook , setMatchedBook] = useState([]);
-  
   useEffect(() => bookIDValidator(), [books, id]);
 
   const  bookIDValidator = () => {
