@@ -59,7 +59,7 @@ function App() {
     if (localStorage.cart) {
       setCartData(JSON.parse(localStorage.getItem('cart')));
     } else {
-      return;
+      setCartData([]);
     }
   }, [])
   

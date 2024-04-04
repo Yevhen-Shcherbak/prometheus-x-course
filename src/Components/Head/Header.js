@@ -24,13 +24,14 @@ export default function Header()  {
     setSignedIn(false);
   }
 
-  // const cartItemsQuantity = () => {
-  //   const initialValue = 0;
-  //   const sum = cartData.reduce( 
-  //     (accumulator,
-  //     currentValue) => accumulator + currentValue.amount, initialValue);
-  //   return sum;
-  // }
+  const cartItemsQuantity = () => {
+    const initialValue = null;
+    const sum = cartData.reduce( 
+      (accumulator,
+      currentValue) => accumulator + currentValue.amount, initialValue);
+      
+    return sum;
+  }
   
   return (
     <header className="nav-panel">
@@ -78,7 +79,7 @@ export default function Header()  {
                     width={35}
                     className="svg"
                   />
-                  <Badge bg="warning">{cartData?cartData.length:'hui'}</Badge>
+                  <Badge bg="warning">{cartItemsQuantity()}</Badge>
                 </Button >
               </Nav.Link>
               <Nav.Link 

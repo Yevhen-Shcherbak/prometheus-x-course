@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Toast } from "react-bootstrap";
 
 import Loading from "../Books/Loading";
 import CartContext from "../../../../Context/CartContext";
@@ -17,7 +18,8 @@ export default function SpecificBook({bookData}) {
   const [minusButtonDisabled, setMinusButtonDisabled] = useState(false);
   const [plusButtonDisabled, setPlusButtonDisabled] = useState(false);
   const {cartData, setCartData} = useContext(CartContext);
-
+  const [showToast, setShowToast] = useState(false);
+  
   useEffect(() => window.scrollTo({
     top: 0,
     behavior: "instant",
@@ -62,7 +64,7 @@ export default function SpecificBook({bookData}) {
     } else setItemsNumber(value);
   };
 
-  const addBookToLocalStorage = () => {
+  function addBookToCart() {
 
     setItemsNumber(1);
 
@@ -72,26 +74,26 @@ export default function SpecificBook({bookData}) {
       amount: itemsNumber,
     };
 
-    const matchIndex = cartData.findIndex(item => item.id === itemToAdd.id);
+    const cart = cartData;
+    const matchIndex = cart.findIndex(item => item.id === itemToAdd.id);
     
     if (matchIndex === -1) {
-      cartData.push(itemToAdd);
+      cart.push(itemToAdd);
     } else {
-      if (cartData[matchIndex].amount < 43) {
-        if((cartData[matchIndex].amount + itemsNumber) >= 43) {
-          cartData[matchIndex].amount = 42;
-        } else {
-          cartData[matchIndex].amount += itemsNumber;
-          setCartData(cartData);
-        }
+      const bookAmountInCart = cartData[matchIndex].amount;
+
+      if (bookAmountInCart + itemsNumber >= 43) {
+        cart[matchIndex].amount = 42;
       } else {
-        cartData[matchIndex].amount = 42;
-      } 
-    }
-    setCartData(cartData);
-    localStorage.setItem('cart', JSON.stringify(cartData));
-    
+        cart[matchIndex].amount += itemsNumber;
+      }
+    }  
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    setCartData(JSON.parse(localStorage.getItem('cart')));
   };
+
+  
   
 
   return (
@@ -191,18 +193,31 @@ export default function SpecificBook({bookData}) {
                   <Card.Text className="m-0 text-end">{totalPrice()}</Card.Text>
                 </Col>
               </Row>
+              <Row style ={{height: '3rem'}}>
+                <Col className="toast-container">
+                  <Toast 
+                    onClose={() => setShowToast(false)} 
+                    show={showToast} 
+                    delay={2000} 
+                    autohide
+                    className="toast"
+                  >
+                    <Toast.Body>some message</Toast.Body>
+                  </Toast>
+                </Col>
+              </Row>              
               <Row>
                 <Col className="d-flex justify-content-end">
-                <Button 
-                  variant= 'primary' 
-                  size="sm" 
-                  className="w-50"
-                  onClick={addBookToLocalStorage}
-                  disabled={isOutOfStock()}
-                >Add to Cart
-                </Button>
+                  <Button 
+                    variant= 'primary' 
+                    size="sm" 
+                    className="w-50"
+                    onClick={() => {addBookToCart(); setShowToast(true)}}                    
+                    disabled={isOutOfStock()}
+                  >Add to Cart
+                  </Button>
                 </Col>
-              </Row>
+              </Row>         
             </Card>          
           </Container>
     </Suspense>
