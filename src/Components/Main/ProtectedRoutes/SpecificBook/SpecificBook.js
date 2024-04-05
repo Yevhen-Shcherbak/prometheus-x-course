@@ -206,7 +206,7 @@ export default function SpecificBook({bookData}) {
                     style={{opacity: 0.5}}
                   >
                     <Toast.Body
-                      variant= "text-white"                      
+                      className= "text-white"                   
                     >
                       {overLimitMessage? 
                         "Over limit. Please visit cart to edit"
