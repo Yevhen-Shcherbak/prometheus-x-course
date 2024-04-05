@@ -19,6 +19,7 @@ export default function SpecificBook({bookData}) {
   const [plusButtonDisabled, setPlusButtonDisabled] = useState(false);
   const {cartData, setCartData} = useContext(CartContext);
   const [showToast, setShowToast] = useState(false);
+  const [overLimitMessage, setOverLimitMessage] = useState(false);
   
   useEffect(() => window.scrollTo({
     top: 0,
@@ -83,6 +84,7 @@ export default function SpecificBook({bookData}) {
       const bookAmountInCart = cartData[matchIndex].amount;
 
       if (bookAmountInCart + itemsNumber >= 43) {
+        setOverLimitMessage(true);
         cart[matchIndex].amount = 42;
       } else {
         cart[matchIndex].amount += itemsNumber;
@@ -98,15 +100,15 @@ export default function SpecificBook({bookData}) {
 
   return (
     <Suspense fallback= {<Loading />}>
-      <Container  className= "d-flex flex-wrap justify-content-evenly gap-5 p-2 p-sm-3" expand= 'sm'>
+      <Container  className= "d-flex flex-wrap justify-content-evenly gap-4 p-2 p-sm-3" expand= 'sm'>
             <Card className="p-2 p-sm-3 m-0" style={{ maxWidth: '40rem'}} >
               <Container className= "d-flex flex-column flex-lg-row p-0 border-bottom border-secondary">
                 <div className="d-flex align-items-center">
-                <Card.Img 
-                  src={bookData.image || require('../../../../assets/imageNotFound.png')}
-                  style={{ maxWidth: '18rem', maxHeight: '24rem' }}
-                  className="object-fit-contain p-1 p-sm-3 m-auto"
-                />
+                  <Card.Img 
+                    src={bookData.image || require('../../../../assets/imageNotFound.png')}
+                    style={{ maxWidth: '18rem', maxHeight: '24rem' }}
+                    className="object-fit-contain p-1 p-sm-3 m-auto"
+                  />
                 </div>
                 <Card.Body>
                   <Card.Title className="mb-3">
@@ -200,9 +202,17 @@ export default function SpecificBook({bookData}) {
                     show={showToast} 
                     delay={2000} 
                     autohide
-                    className="toast"
+                    bg= {overLimitMessage? "danger": "success"}
+                    style={{opacity: 0.5}}
                   >
-                    <Toast.Body>some message</Toast.Body>
+                    <Toast.Body
+                      variant= "text-white"                      
+                    >
+                      {overLimitMessage? 
+                        "Over limit. Please visit cart to edit"
+                        :"Added to cart. Please visit cart to edit"
+                      }
+                    </Toast.Body>
                   </Toast>
                 </Col>
               </Row>              
