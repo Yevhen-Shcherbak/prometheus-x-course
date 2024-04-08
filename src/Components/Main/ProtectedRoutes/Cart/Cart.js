@@ -49,6 +49,7 @@ export default function Cart() {
                   <Button
                     variant= "outline-success"
                     size= "sm"
+                    className="border-2"
                   >
                     <Image src= {svg}></Image>
                   </Button>
