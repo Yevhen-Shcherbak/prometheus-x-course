@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import BooksContext from "../../../../Context/BooksContext";
+import bookNameShortener from "../../../../project-utils/bookNameShortener";
 
 export default function Books() {
 
@@ -62,13 +63,7 @@ export default function Books() {
     : setSearchFilteredBooks([])
   }
 
-  const bookNameShortener = (string) => {
-    if (string.length >= 24) {
-      let shortenedString = string.substring(0, 24);
-      return shortenedString += '...'
-    }
-    return string;
-  };
+  
 
   return (
     <>

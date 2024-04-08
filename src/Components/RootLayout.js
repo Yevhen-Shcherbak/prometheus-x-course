@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 import Header from "./Head/Header";
 import Footer from "./Foot/Footer";
-import Loading from "./Main/ProtectedRoutes/Books/Loading";
+import Loading from "../Components/Loader/Loading";
 
 export default function RootLayout () {
     

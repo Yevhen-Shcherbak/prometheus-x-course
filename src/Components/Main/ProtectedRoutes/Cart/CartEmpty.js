@@ -1,6 +1,12 @@
-import { Button, Container } from "react-bootstrap";
+import { lazy } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { Button, Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+
+import svg from "./cart.svg";
+
+
 
 export default function CartEmpty() {
 
@@ -15,15 +21,19 @@ export default function CartEmpty() {
 	}
 
 	return (
-		<Container className="d-flex justify-content-center align-items-center h-100">
-			<Card className= "p-3 text-center w-50 ">
-			<Card.Text>
-				Cart Empty
-			</Card.Text>
-			<Button onClick={()=> backHome()} className="align-self-center">
-				Back to shopping
-			</Button>
-			</Card>
-		</Container>
+			<Container fluid className="d-flex justify-content-center align-items-center h-100">
+				<Card className= "p-5 text-center rounded-5">
+						<Card.Img
+						style= {{ minWidth: "10rem" }}
+						src= { svg }/>
+					<Button 
+						onClick={()=> backHome()} 
+						className="align-self-center border-2 fs-4"
+						variant= "outline-primary"
+					>
+						Back to shopping
+					</Button>
+				</Card>
+			</Container>
 	)
 }

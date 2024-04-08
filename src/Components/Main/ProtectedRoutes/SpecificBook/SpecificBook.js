@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Toast } from "react-bootstrap";
 
-import Loading from "../Books/Loading";
+import Loading from "../../../Loader/Loading";
 import CartContext from "../../../../Context/CartContext";
 
 

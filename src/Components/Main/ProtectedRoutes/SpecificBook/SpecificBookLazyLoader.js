@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 
-import Loading from "../Books/Loading";
+import Loading from "../../../Loader/Loading";
 import BooksContext from "../../../../Context/BooksContext";
 import NotFound from "../../NotFound";
 

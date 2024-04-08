@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { lazy } from 'react';
 
-import Loading from "./Loading";
+import Loading from "../../../Loader/Loading";
 
 const BooksLazy = lazy(()=> import('./Books'));
 
