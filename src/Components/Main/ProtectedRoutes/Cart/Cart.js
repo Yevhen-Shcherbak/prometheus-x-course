@@ -26,9 +26,9 @@ export default function Cart() {
     : localStorage.removeItem('cart');
   }
 
-  const totalPriceCollector = () => {
+  const totalPriceAllCart = () => {
     const sum = cartData.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.totalPrice;
+      return accumulator + (currentValue.price * currentValue.amount);
     }, 0);
 
     return sum.toFixed(2);
@@ -58,7 +58,7 @@ export default function Cart() {
               <tr key= {book.id}>
                 <th style={{fontWeight: "unset"}}>{bookNameShortener(book.bookName)}</th>
                 <th style={{minWidth: "3.5rem", fontWeight: "unset"}}>{book.amount}</th>
-                <th style={{fontWeight: "unset"}}>{book.totalPrice}</th>
+                <th style={{fontWeight: "unset"}}>{(book.price * book.amount).toFixed(2)}</th>
                 <th 
                   className="text-end"
                   style={{fontWeight: "unset"}}
@@ -78,7 +78,7 @@ export default function Cart() {
               <tr>
                 <th style={{borderBottom: "unset"}}></th>
                 <th style={{borderBottom: "unset"}}></th>
-                <th style={{borderBottom: "unset"}}>{totalPriceCollector()}</th>
+                <th style={{borderBottom: "unset"}}>{totalPriceAllCart()}</th>
                 <th className="text-end p-1 p-sm-2"
                   style={{borderBottom: "unset"}}
                 >
