@@ -73,6 +73,8 @@ export default function SpecificBook({bookData}) {
       id: bookData.id,
       bookName: bookData.title,
       amount: itemsNumber,
+      price: bookData.price,
+      totalPrice: Number((bookData.price * itemsNumber).toFixed(2)),
     };
 
     const cart = cartData;
@@ -86,8 +88,10 @@ export default function SpecificBook({bookData}) {
       if (bookAmountInCart + itemsNumber >= 43) {
         setOverLimitMessage(true);
         cart[matchIndex].amount = 42;
+        cart[matchIndex].totalPrice = Number((bookData.price * 42).toFixed(2));
       } else {
         cart[matchIndex].amount += itemsNumber;
+        cart[matchIndex].totalPrice += Number((bookData.price * itemsNumber).toFixed(2));
       }
     }  
 

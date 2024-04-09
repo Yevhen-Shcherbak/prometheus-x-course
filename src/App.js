@@ -65,13 +65,11 @@ function App() {
   
   return ( 
     <CartContext.Provider value= {{cartData, setCartData}}>
-    <SignedInContext.Provider value= {[signedIn, setSignedIn]}>
-      
+      <SignedInContext.Provider value= {[signedIn, setSignedIn]}>   
         <BooksContext.Provider value = {fetchedData}>
           <RouterProvider router= {router}/>
-        </BooksContext.Provider>  
-      
-    </SignedInContext.Provider>
+        </BooksContext.Provider>        
+      </SignedInContext.Provider>
     </CartContext.Provider>  
   );
 }

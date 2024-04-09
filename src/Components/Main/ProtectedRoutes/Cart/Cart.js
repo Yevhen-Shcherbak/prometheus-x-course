@@ -16,11 +16,28 @@ export default function Cart() {
     setCartData([]);
     localStorage.removeItem('cart');
   }
+
+  const handleDeleteBook = (id) => {
+    const updatedCart = cartData.filter((book) => book.id !== id);
+    setCartData(updatedCart);
+    
+    updatedCart.length !== 0 ?
+      localStorage.setItem('cart', JSON.stringify(updatedCart))
+    : localStorage.removeItem('cart');
+  }
+
+  const totalPriceCollector = () => {
+    const sum = cartData.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.totalPrice;
+    }, 0);
+
+    return sum;
+  }
+
   if (cartData.length !=0) {
     return (
       <Container 
-        className= "p-0 p-sm-3 d-flex justify-content-center align-items-center h-100 p-1"
-        
+        className= "p-0 p-sm-3 d-flex justify-content-center align-items-center h-100 p-1"  
       >
       <div className="p-1 bg-white border border rounded-3" style= {{width: "55rem"}}>
         <Table 
@@ -41,7 +58,7 @@ export default function Cart() {
               <tr key= {book.id}>
                 <th style={{fontWeight: "unset"}}>{bookNameShortener(book.bookName)}</th>
                 <th style={{minWidth: "3.5rem", fontWeight: "unset"}}>{book.amount}</th>
-                <th style={{fontWeight: "unset"}}>Total price</th>
+                <th style={{fontWeight: "unset"}}>{book.totalPrice}</th>
                 <th 
                   className="text-end"
                   style={{fontWeight: "unset"}}
@@ -50,6 +67,7 @@ export default function Cart() {
                     variant= "outline-success"
                     size= "sm"
                     className="border-2"
+                    onClick= {(() => handleDeleteBook(book.id))}
                   >
                     <Image src= {svg}></Image>
                   </Button>
@@ -60,14 +78,13 @@ export default function Cart() {
               <tr>
                 <th style={{borderBottom: "unset"}}></th>
                 <th style={{borderBottom: "unset"}}></th>
-                <th style={{borderBottom: "unset"}}></th>
+                <th style={{borderBottom: "unset"}}>{totalPriceCollector()}</th>
                 <th className="text-end p-1 p-sm-2"
                   style={{borderBottom: "unset"}}
                 >
                   <Button
                     variant= 'primary'
                     onClick= {()=> handlePurchase()}
-                    size= "sm"
                   >
                     Purchase
                   </Button>
@@ -81,3 +98,11 @@ export default function Cart() {
     return (<CartEmpty />)
   }
 }
+
+// function BookRow({id}) {
+
+//   return (
+
+//   )
+
+// }
