@@ -31,7 +31,7 @@ export default function Cart() {
       return accumulator + currentValue.totalPrice;
     }, 0);
 
-    return sum;
+    return sum.toFixed(2);
   }
 
   if (cartData.length !=0) {
