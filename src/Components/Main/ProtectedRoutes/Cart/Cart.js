@@ -98,11 +98,3 @@ export default function Cart() {
     return (<CartEmpty />)
   }
 }
-
-// function BookRow({id}) {
-
-//   return (
-
-//   )
-
-// }
