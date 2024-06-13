@@ -40,11 +40,13 @@ export default function Header()  {
           <div>
             <div className="logo-homeLink d-inline-block">
               <div className="logo-container d-none d-sm-block">
-                <Image 
-                  className = 'rp-10'src= {require ('./flg_logo.png')}  
-                  fluid alt="logo" 
-                  width={60}
-                />
+                <NavLink to="/books">
+                  <Image 
+                    className = 'rp-10'src= {require ('./flg_logo.png')}  
+                    fluid alt="logo" 
+                    width={60}
+                  />
+                </NavLink> 
               </div>
             </div>
             <div className="ps-sm-3 d-inline-block">
